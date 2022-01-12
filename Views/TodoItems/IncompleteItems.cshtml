@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TodoList.Models.TodoItem>
+
+@{
+    ViewData["Title"] = " Incomplete Items";
+}
+
+<h1>Incomplete Items</h1>
+
+<p>
+    <a asp-action="Create" class="page-links">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td id=isCompleted>
+                    <form asp-action="UpdateStatus" asp-route-id="@item.Id" method="post">
+                           <input type="submit" value="Complete" class="btn btn-primary" />
+                    </form>
+            </td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                           <input type="submit" value="Delete" class="btn btn-primary" />
+                    </form>
+            </td>
+
+           <!-- <td>
+                <a asp-action="Edit" class="table-links" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" class="table-links" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" class="table-links" asp-route-id="@item.Id">Delete</a>
+            </td>-->
+        </tr>
+}
+    </tbody>
+</table>
